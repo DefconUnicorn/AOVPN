@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>..\aovpn-icon.ico</ApplicationIcon>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>AOVPN.Desktop</AssemblyName>
+    <RootNamespace>AOVPN.Desktop</RootNamespace>
+    <Version>0.1.1</Version>
+    <AssemblyVersion>0.1.1.0</AssemblyVersion>
+    <FileVersion>0.1.1.0</FileVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\controller\AOVPN.Controller.csproj" />
+    <PackageReference Include="System.ServiceProcess.ServiceController" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons\*.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="assets\*.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="style.css" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\aovpn-icon.ico" Link="aovpn-icon.ico" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\aovpn-icon.png" Link="aovpn-icon.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\aovpn-systray-icon-connected.png" Link="aovpn-systray-icon-connected.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\aovpn-systray-icon-connecting.png" Link="aovpn-systray-icon-connecting.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\aovpn-systray-icon-idle.png" Link="aovpn-systray-icon-idle.png" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\openvpn-core\COPYING" Link="LICENSES\OpenVPN-COPYING" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\openvpn-core\COPYRIGHT.GPL" Link="LICENSES\OpenVPN-COPYRIGHT.GPL" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\LICENSES\DCO-COPYRIGHT.MIT" Link="LICENSES\DCO-COPYRIGHT.MIT" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\LICENSES\THIRD-PARTY-NOTICES.md" Link="LICENSES\THIRD-PARTY-NOTICES.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\vcpkg\packages\openssl_x64-windows-ovpn\share\openssl\copyright" Link="LICENSES\OpenSSL-copyright" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\vcpkg\packages\pkcs11-helper_x64-windows-ovpn\share\pkcs11-helper\copyright" Link="LICENSES\pkcs11-helper-copyright" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\vcpkg\packages\cmocka_x64-windows-ovpn\share\cmocka\copyright" Link="LICENSES\cmocka-copyright" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\vcpkg\packages\lz4_x64-windows-ovpn\share\lz4\copyright" Link="LICENSES\lz4-copyright" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\vcpkg\packages\lzo_x64-windows-ovpn\share\lzo\copyright" Link="LICENSES\lzo-copyright" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

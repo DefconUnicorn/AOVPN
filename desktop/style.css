@@ -1,0 +1,26 @@
+/* AOVPN theme. Values are loaded at startup from the executable folder. */
+:root {
+  --window-background: #2D2D2D;
+  --panel-background: #383838;
+  --text-color: #FFFFFF;
+  --muted-text-color: #C8C8C8;
+  --accent-color: #62E0B5;
+  --border-color: #999999;
+  --button-background: #263748;
+  --button-border: #42566B;
+  --button-text: #F1F5F9;
+  --graph-background: #2D2D2D;
+  --graph-border: #2D2D2D;
+  --graph-grid: #3C3C3C;
+  --graph-sent: #62E0B5;
+  --graph-received: #8AB4F8;
+  --graph-local-sent: #F6C85F;
+  --graph-local-received: #FF8A65;
+  --toggle-background: #3B4B5D;
+  --toggle-active: #62E0B5;
+  --toggle-disabled: #6B7280;
+  --logo-file: assets/logotop.png;
+  --logo-width: 280;
+  --logo-height: 105;
+  --font-family: Segoe UI;
+}

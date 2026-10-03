@@ -1,0 +1,9 @@
+[submodule "openvpn-core"]
+	path = openvpn-core
+	url = https://github.com/OpenVPN/openvpn.git
+[submodule "openvpn-gui"]
+	path = openvpn-gui
+	url = https://github.com/OpenVPN/openvpn-gui.git
+[submodule "vcpkg"]
+	path = vcpkg
+	url = https://github.com/microsoft/vcpkg.git

@@ -1,0 +1,104 @@
+<Window x:Class="AOVPN.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AOVPN" Width="640" Height="960" MinWidth="560" MinHeight="760"
+        WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowActivated="True"
+        Background="{DynamicResource WindowBrush}" Foreground="{DynamicResource TextBrush}" PreviewMouseLeftButtonDown="Window_PreviewMouseLeftButtonDown">
+    <Grid>
+        <Grid x:Name="DashboardPanel" Margin="28,28,28,28">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Visibility="Collapsed">
+                <TextBlock x:Name="VpnStatusText" /><TextBlock x:Name="NetworkStatusText" /><TextBlock x:Name="ServiceStateText" />
+            </StackPanel>
+
+            <Image Grid.Row="0" Source="{DynamicResource LogoImageSource}" Width="{DynamicResource LogoWidth}" Height="{DynamicResource LogoHeight}" Stretch="Uniform" Margin="0,0,0,10" />
+
+            <Grid Grid.Row="1" Margin="0,0,0,24">
+                <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                <Border Grid.Row="0" Grid.Column="0" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Height="54"><TextBlock Text="SERVICE" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" /></Border>
+                <Border Grid.Row="0" Grid.Column="1" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Height="54"><TextBlock x:Name="DashboardServiceInstallText" Text="NOT INSTALLED" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" /></Border>
+                <Border Grid.Row="0" Grid.Column="2" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Height="54"><TextBlock x:Name="DashboardServiceConnectionText" Text="DISCONNECTED" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" /></Border>
+                <Border Grid.Row="1" Grid.Column="0" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Height="54"><TextBlock Text="VPN" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" /></Border>
+                <Border Grid.Row="1" Grid.Column="1" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Height="54"><TextBlock x:Name="DashboardVpnProgramText" Text="STOPPED" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" /></Border>
+                <Border Grid.Row="1" Grid.Column="2" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Height="54"><TextBlock x:Name="DashboardVpnConnectionText" Text="DISCONNECTED" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" /></Border>
+            </Grid>
+
+            <Grid Grid.Row="2" Margin="0,0,0,24">
+                <Border Background="{DynamicResource GraphBackgroundBrush}" BorderThickness="0" VerticalAlignment="Stretch">
+                    <Canvas x:Name="TrafficCanvas" SizeChanged="TrafficCanvas_SizeChanged" Background="{DynamicResource GraphBackgroundBrush}">
+                        <Polyline x:Name="SentLine" Stroke="{DynamicResource GraphSentBrush}" StrokeThickness="2" />
+                        <Polyline x:Name="ReceivedLine" Stroke="{DynamicResource GraphReceivedBrush}" StrokeThickness="2" />
+                        <Rectangle x:Name="GraphFadeLeft" Width="20" Fill="#FF2D2D2D" Canvas.ZIndex="10">
+                            <Rectangle.OpacityMask><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#FF2D2D2D" Offset="0" /><GradientStop Color="#002D2D2D" Offset="1" /></LinearGradientBrush></Rectangle.OpacityMask>
+                        </Rectangle>
+                        <Rectangle x:Name="GraphFadeRight" Width="20" Fill="#FF2D2D2D" Canvas.ZIndex="10">
+                            <Rectangle.OpacityMask><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#002D2D2D" Offset="0" /><GradientStop Color="#FF2D2D2D" Offset="1" /></LinearGradientBrush></Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Canvas>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="3">
+                <Border Width="100" Height="43" HorizontalAlignment="Left" Background="{DynamicResource WindowBrush}" Margin="0,0,8,0">
+                    <TextBlock x:Name="NetworkStateText" Text="External" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" />
+                </Border>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <ToggleButton x:Name="ConnectToggle" Style="{StaticResource SwitchToggleStyle}" Checked="ConnectToggle_Checked" Unchecked="ConnectToggle_Unchecked" />
+                    <TextBlock Text="VPN" VerticalAlignment="Center" Margin="0,0,20,0" />
+                    <ToggleButton x:Name="ServiceToggle" Style="{StaticResource SwitchToggleStyle}" Checked="ServiceToggle_Checked" Unchecked="ServiceToggle_Unchecked" />
+                    <TextBlock Text="SERVICE" VerticalAlignment="Center" Margin="0,0,20,0" />
+                    <Button Content="SETTINGS" Click="Settings_Click" Padding="20,12" FontWeight="Bold" Margin="0" />
+                    <Button Content="CLOSE" Click="Close_Click" Padding="20,12" FontWeight="Bold" Margin="8,0,0,0" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="SettingsPanel" Margin="28,0,28,28" Visibility="Collapsed">
+            <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+            <DockPanel Grid.Row="0" Margin="0,0,0,18">
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <Button Content="Back" Click="Back_Click" Padding="16,8" />
+                </StackPanel>
+                <TextBlock Text="AOVPN SETTINGS" FontSize="26" FontWeight="SemiBold" VerticalAlignment="Center" />
+            </DockPanel>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <Border Background="#383838" Padding="16" Margin="0,0,0,16">
+                        <StackPanel>
+                            <TextBlock Text="Profiles" FontSize="19" FontWeight="SemiBold" />
+                            <TextBlock x:Name="ProfileText" Text="No profile imported" Foreground="#D0D0D0" Margin="0,6,0,12" />
+                            <WrapPanel HorizontalAlignment="Center" Margin="0,4">
+                                <Button Content="Import pre-login" Click="ImportPreLogin_Click" Margin="8" />
+                                <Button Content="Import post-login" Click="ImportPostLogin_Click" Margin="8" />
+                                <Button Content="Delete configs" Click="DeleteConfigs_Click" Margin="8" />
+                                <Button x:Name="ViewConfigButton" Content="View config" Click="ViewConfig_Click" Margin="8" />
+                                <Button x:Name="ViewLogButton" Content="VPN log" Click="ViewLog_Click" Margin="8" />
+                                <Button x:Name="ViewServiceLogButton" Content="Service log" Click="ViewServiceLog_Click" Margin="8" />
+                                <Button Content="Network details" Click="ViewNetwork_Click" Margin="8" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </Border>
+                    <TextBlock Text="Network detection" FontSize="20" FontWeight="SemiBold" />
+                    <TextBlock Text="The VPN is disconnected when this hostname resolves on the internal network." Foreground="#C8C8C8" TextWrapping="Wrap" Margin="0,5,0,0" />
+                    <Label Content="Internal-only DNS hostname" /><TextBox x:Name="DnsHostTextBox" />
+                    <Label Content="Expected IP address (optional, recommended)" /><TextBox x:Name="ExpectedIpTextBox" />
+                    <Label Content="Detection interval (seconds)" /><TextBox x:Name="IntervalTextBox" Width="160" HorizontalAlignment="Left" />
+                    <CheckBox x:Name="AutoConnectCheckBox" Content="Automatically connect when external" Foreground="White" Margin="0,16,0,0" />
+                    <Label Content="OpenVPN executable" />
+                    <DockPanel><Button DockPanel.Dock="Right" Content="Browse" Click="BrowseOpenVpn_Click" Margin="8,0,0,0" /><TextBox x:Name="OpenVpnTextBox" /></DockPanel>
+                    <TextBlock Text="OpenVPN driver: DCO (required)" Foreground="White" Margin="0,12,0,0" />
+                </StackPanel>
+            </ScrollViewer>
+            <DockPanel Grid.Row="2" Margin="0,18,0,0">
+                <Button Content="Save settings" Click="Save_Click" Padding="18,9" />
+                <TextBlock x:Name="MessageText" Text="Ready" Foreground="#C8C8C8" VerticalAlignment="Center" Margin="12,0,0,0" />
+            </DockPanel>
+        </Grid>
+    </Grid>
+</Window>

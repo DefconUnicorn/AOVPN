@@ -1,0 +1,12 @@
+GNU GENERAL PUBLIC LICENSE
+Version 2, June 1991
+
+Copyright (C) 1989, 1991 Free Software Foundation, Inc.
+
+The AOVPN application code in this repository is licensed under the GNU
+General Public License, version 2. The complete license text is provided in
+`openvpn-core/COPYRIGHT.GPL` and is also distributed in the test package as
+`LICENSES/OpenVPN-COPYRIGHT.GPL`.
+
+OpenVPN and its bundled components retain their original copyright notices,
+licenses, and exceptions. See `LICENSES/THIRD-PARTY-NOTICES.md`.

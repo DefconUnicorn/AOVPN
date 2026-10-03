@@ -1,0 +1,11 @@
+**/bin/
+**/obj/
+test-package/AOVPN/
+AOVPN-test-package.zip
+openvpn-core/out/
+vcpkg/buildtrees/
+vcpkg/downloads/
+vcpkg/installed/
+vcpkg/packages/
+*.user
+*.suo
