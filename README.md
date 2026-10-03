@@ -9,7 +9,8 @@ Location-aware Windows Always On VPN client using OpenVPN DCO.
 The desktop client and service use separate pre-login and post-login profiles,
 detect the internal network through IPv4 DNS, and require the Windows OpenVPN
 DCO driver. See `desktop/README.md` and `test-package/AOVPN/README.txt` for
-build and test instructions.
+build and test instructions. The release MSI also installs the signed OpenVPN
+DCO driver for x64 Windows machines.
 
 ## Installer
 

@@ -5,9 +5,9 @@ the desktop client, AOVPN service, OpenVPN runtime, assets, and license notices
 under `%ProgramFiles%\AOVPN`.
 
 The MSI registers `AOVPNService` as an automatic `LocalSystem` service and
-stops/removes it during uninstall. The MSI does not install the Windows DCO
-driver; install a matching signed DCO driver from the OpenVPN distribution
-before starting a VPN connection.
+stops/removes it during uninstall. The MSI includes the official signed
+OpenVPN DCO x64 merge module version 2.7.1 and installs/removes the driver with
+the MSI. Its MIT license notice is included in the package license folder.
 
 ## Build
 

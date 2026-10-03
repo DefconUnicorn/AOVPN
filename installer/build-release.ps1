@@ -17,6 +17,9 @@ if (-not (Test-Path -LiteralPath (Join-Path $root "service"))) {
 if (-not (Test-Path -LiteralPath (Join-Path $existingPackage "openvpn\openvpn.exe"))) {
     throw "Stage the OpenVPN runtime under test-package\AOVPN\openvpn before building the release."
 }
+if (-not (Test-Path -LiteralPath (Join-Path $PSScriptRoot "ovpn-dco-amd64.msm"))) {
+    throw "The official x64 DCO merge module is missing from the installer directory."
+}
 
 if (Test-Path -LiteralPath $staging) {
     Remove-Item -LiteralPath $staging -Recurse -Force

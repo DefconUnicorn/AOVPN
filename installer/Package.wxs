@@ -2,14 +2,14 @@
   <Package
       Name="AOVPN"
       Manufacturer="DefconUnicorn"
-      Version="0.1.1.0"
+      Version="0.1.2.0"
       UpgradeCode="B7C0A35E-84C8-4F86-8ED5-6D3F0C2BBE26"
       Scope="perMachine">
     <SummaryInformation Description="Location-aware Windows Always On VPN client" />
     <MajorUpgrade DowngradeErrorMessage="A newer version of AOVPN is already installed." />
     <MediaTemplate EmbedCab="yes" />
 
-    <StandardDirectory Id="ProgramFilesFolder">
+    <StandardDirectory Id="ProgramFiles64Folder">
       <Directory Id="INSTALLFOLDER" Name="AOVPN">
         <Directory Id="SERVICEFOLDER" Name="service" />
       </Directory>
@@ -17,10 +17,15 @@
 
     <Feature Id="MainFeature" Title="AOVPN" Level="1">
       <ComponentRef Id="ServiceComponent" />
+      <MergeRef Id="DcoDriver" />
       <Files Include="$(var.PackageDir)\**" Directory="INSTALLFOLDER">
         <Exclude Files="$(var.PackageDir)\service\AOVPN.Service.exe" />
       </Files>
     </Feature>
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Merge Id="DcoDriver" SourceFile="$(var.DcoMergeModule)" DiskId="1" Language="0" />
+    </DirectoryRef>
 
     <Component Id="ServiceComponent" Directory="SERVICEFOLDER" Guid="*">
       <File Id="ServiceExecutable" Source="$(var.PackageDir)\service\AOVPN.Service.exe" KeyPath="yes" />

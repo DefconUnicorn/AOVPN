@@ -10,7 +10,7 @@ OpenVPN is a trademark of OpenVPN Inc. This project is not affiliated with or en
 
 ## Windows DCO driver
 
-The Windows DCO driver is not bundled by AOVPN. A matching signed driver must be installed from an OpenVPN distribution. The upstream `ovpn-dco-win` project publishes its driver code under the MIT license; the applicable notice is included in `DCO-COPYRIGHT.MIT`.
+The MSI includes the official signed x64 `ovpn-dco-win` 2.7.1 merge module. The upstream driver project publishes its driver code under the MIT license; the applicable notice is included in `DCO-COPYRIGHT.MIT`.
 
 ## Other OpenVPN runtime libraries
 
