@@ -60,7 +60,8 @@ internal sealed class TrayController : IDisposable
         if (File.Exists(path))
         {
             using var bitmap = new Bitmap(path);
-            icon = Icon.FromHandle(bitmap.GetHicon());
+            using var sourceIcon = Icon.FromHandle(bitmap.GetHicon());
+            icon = (Icon)sourceIcon.Clone();
         }
         else
         {
@@ -77,7 +78,8 @@ internal sealed class TrayController : IDisposable
                 using var brush = new SolidBrush(color);
                 graphics.FillEllipse(brush, 3, 3, 26, 26);
             }
-            icon = Icon.FromHandle(bitmap.GetHicon());
+            using var sourceIcon = Icon.FromHandle(bitmap.GetHicon());
+            icon = (Icon)sourceIcon.Clone();
         }
         _icons[state] = icon;
         return icon;

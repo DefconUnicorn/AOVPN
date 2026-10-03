@@ -21,6 +21,11 @@ powershell -ExecutionPolicy Bypass -File .\installer\build-release.ps1
 The script publishes the desktop and service with the `win-x64` runtime and
 builds the MSI from `release-package\AOVPN`.
 
+Interactive installs launch the desktop tray application after installation
+and register it under the machine-wide Windows logon startup entries. Silent
+and Group Policy installs do not launch an interactive GUI; the GUI starts at
+the next user logon.
+
 For a framework-dependent test package, first publish the desktop and service
 projects into `test-package\AOVPN`, then build directly:
 

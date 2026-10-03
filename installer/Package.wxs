@@ -2,7 +2,7 @@
   <Package
       Name="AOVPN"
       Manufacturer="DefconUnicorn"
-      Version="0.1.2.0"
+      Version="0.1.3.0"
       UpgradeCode="B7C0A35E-84C8-4F86-8ED5-6D3F0C2BBE26"
       Scope="perMachine">
     <SummaryInformation Description="Location-aware Windows Always On VPN client" />
@@ -17,9 +17,11 @@
 
     <Feature Id="MainFeature" Title="AOVPN" Level="1">
       <ComponentRef Id="ServiceComponent" />
+      <ComponentRef Id="DesktopExecutableComponent" />
       <MergeRef Id="DcoDriver" />
       <Files Include="$(var.PackageDir)\**" Directory="INSTALLFOLDER">
         <Exclude Files="$(var.PackageDir)\service\AOVPN.Service.exe" />
+        <Exclude Files="$(var.PackageDir)\AOVPN.Desktop.exe" />
       </Files>
     </Feature>
 
@@ -45,5 +47,27 @@
           Stop="both"
           Remove="uninstall" />
     </Component>
+
+    <Component Id="DesktopExecutableComponent" Directory="INSTALLFOLDER" Guid="*">
+      <File Id="DesktopExecutable" Source="$(var.PackageDir)\AOVPN.Desktop.exe" KeyPath="yes" />
+      <RegistryValue
+          Root="HKLM"
+          Key="Software\Microsoft\Windows\CurrentVersion\Run"
+          Name="AOVPN"
+          Type="string"
+          Value="[INSTALLFOLDER]AOVPN.Desktop.exe" />
+    </Component>
+
+    <CustomAction
+        Id="LaunchAOVPN"
+        FileRef="DesktopExecutable"
+        ExeCommand=""
+        Execute="immediate"
+        Impersonate="yes"
+        Return="ignore" />
+
+    <InstallExecuteSequence>
+      <Custom Action="LaunchAOVPN" After="InstallFinalize" Condition="NOT Installed AND UILevel &gt;= 3" />
+    </InstallExecuteSequence>
   </Package>
 </Wix>
