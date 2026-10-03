@@ -46,7 +46,7 @@ Supported variables include:
 --toggle-background: #3B4B5D;
 --toggle-active: #62E0B5;
 --toggle-disabled: #6B7280;
---logo-file: assets/amglogo.png;
+--logo-file: assets/logotop.png;
 --logo-width: 280;
 --logo-height: 105;
 --font-family: Segoe UI;
