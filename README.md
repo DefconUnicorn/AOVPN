@@ -1,4 +1,5 @@
-<img width="637" height="961" alt="always on vpn" src="https://github.com/user-attachments/assets/9b8ec4b7-b5b8-4a5c-817d-c640ecf17518" /><br>
+<center><img width="637" height="953" alt="always on vpn" src="https://github.com/user-attachments/assets/7adade02-3124-4d51-af34-fb31f24048da" />
+</center><br>
 # AOVPN
 
 Location-aware Windows Always On VPN client using OpenVPN DCO.
