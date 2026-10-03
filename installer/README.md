@@ -21,6 +21,10 @@ powershell -ExecutionPolicy Bypass -File .\installer\build-release.ps1
 The script publishes the desktop and service with the `win-x64` runtime and
 builds the MSI from `release-package\AOVPN`.
 
+VPN profiles and `settings.json` are intentionally rejected from release
+staging. Users import their pre-login and post-login `.ovpn` profiles after
+installation; runtime profiles and settings are stored under `%ProgramData%\AOVPN`.
+
 Interactive installs launch the desktop tray application after installation
 and register it under the machine-wide Windows logon startup entries. Silent
 and Group Policy installs do not launch an interactive GUI; the GUI starts at

@@ -2,7 +2,7 @@
   <Package
       Name="AOVPN"
       Manufacturer="DefconUnicorn"
-      Version="0.1.6.0"
+      Version="0.1.7.0"
       UpgradeCode="B7C0A35E-84C8-4F86-8ED5-6D3F0C2BBE26"
       Scope="perMachine">
     <SummaryInformation Description="Location-aware Windows Always On VPN client" />
@@ -22,6 +22,8 @@
       <Files Include="$(var.PackageDir)\**" Directory="INSTALLFOLDER">
         <Exclude Files="$(var.PackageDir)\service\AOVPN.Service.exe" />
         <Exclude Files="$(var.PackageDir)\AOVPN.Desktop.exe" />
+        <Exclude Files="$(var.PackageDir)\**\*.ovpn" />
+        <Exclude Files="$(var.PackageDir)\**\settings.json" />
       </Files>
     </Feature>
 

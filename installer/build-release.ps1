@@ -31,5 +31,12 @@ dotnet publish (Join-Path $root "service\AOVPN.Service.csproj") -c $Configuratio
 Copy-Item -LiteralPath (Join-Path $existingPackage "openvpn") -Destination $staging -Recurse
 Copy-Item -LiteralPath (Join-Path $existingPackage "README.txt") -Destination $staging -Force
 
+$forbidden = Get-ChildItem -LiteralPath $staging -Recurse -File | Where-Object {
+    $_.Extension -ieq ".ovpn" -or $_.Name -ieq "settings.json"
+}
+if ($forbidden) {
+    throw "Release staging contains VPN profiles or settings: $($forbidden.FullName -join ', ')"
+}
+
 dotnet build (Join-Path $PSScriptRoot "AOVPN.Installer.wixproj") -c $Configuration -p:PackageDir=$staging
 Write-Output (Join-Path $PSScriptRoot "bin\$Configuration\AOVPN-Setup.msi")
