@@ -268,7 +268,7 @@ public partial class MainWindow : Window
             _userRequestedDisconnect = true;
         if (ServiceInstaller.IsInstalled())
         {
-            await ServiceHandoff.SendAsync("disconnect-all");
+            _ = await ServiceHandoff.SendAsync("disconnect-all");
             _serviceVpnConnected = false;
         }
         else
@@ -286,8 +286,16 @@ public partial class MainWindow : Window
 
     private async void ConnectToggle_Unchecked(object sender, RoutedEventArgs e)
     {
-        if (!_updatingToggles)
+        if (_updatingToggles)
+            return;
+        try
+        {
             await DisconnectAsyncFromUi();
+        }
+        catch (Exception ex)
+        {
+            SetMessage($"VPN disconnect failed: {ex.Message}");
+        }
     }
 
     private async void ServiceToggle_Checked(object sender, RoutedEventArgs e)

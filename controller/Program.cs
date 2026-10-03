@@ -741,9 +741,10 @@ public static class ServiceHandoff
             await writer.WriteLineAsync("status");
             return await reader.ReadLineAsync(cancellationToken) ?? "DISCONNECTED";
         }
-        catch (IOException) { return "UNAVAILABLE"; }
-        catch (TimeoutException) { return "UNAVAILABLE"; }
-        catch (ObjectDisposedException) { return "UNAVAILABLE"; }
+         catch (IOException) { return "UNAVAILABLE"; }
+         catch (TimeoutException) { return "UNAVAILABLE"; }
+         catch (ObjectDisposedException) { return "UNAVAILABLE"; }
+         catch (InvalidOperationException) { return "UNAVAILABLE"; }
     }
 
     public static async Task<bool> ConnectPostAsync(string username, string password, CancellationToken cancellationToken = default)
@@ -759,8 +760,10 @@ public static class ServiceHandoff
             await writer.WriteLineAsync(password);
             return string.Equals(await reader.ReadLineAsync(cancellationToken), "OK", StringComparison.OrdinalIgnoreCase);
         }
-        catch (IOException) { return false; }
-        catch (TimeoutException) { return false; }
+         catch (IOException) { return false; }
+         catch (TimeoutException) { return false; }
+         catch (ObjectDisposedException) { return false; }
+         catch (InvalidOperationException) { return false; }
     }
 
     public static async Task<bool> SendAsync(string command, CancellationToken cancellationToken = default)
@@ -778,9 +781,17 @@ public static class ServiceHandoff
         {
             return false;
         }
-        catch (TimeoutException)
-        {
-            return false;
-        }
+         catch (TimeoutException)
+         {
+             return false;
+         }
+         catch (ObjectDisposedException)
+         {
+             return false;
+         }
+         catch (InvalidOperationException)
+         {
+             return false;
+         }
     }
 }
