@@ -1,5 +1,7 @@
-<center><img width="637" height="953" alt="always on vpn" src="https://github.com/user-attachments/assets/7adade02-3124-4d51-af34-fb31f24048da" />
-</center><br>
+<div align="center">
+  <img width="637" height="953" alt="Always On VPN" src="https://github.com/user-attachments/assets/7adade02-3124-4d51-af34-fb31f24048da" />
+</div>
+
 # AOVPN
 
 Location-aware Windows Always On VPN client using OpenVPN DCO.
@@ -18,94 +20,101 @@ in `LICENSES/` for the notices distributed with the test package.
 OpenVPN is a trademark of OpenVPN Inc. This project is not affiliated with or
 endorsed by OpenVPN Inc.
 
-#FIREWALL \ VPN SERVER SETUP PFSESNE EXAMPLE
+## Firewall / VPN Server Setup: pfSense Example
 
-Create Cert Auth if you dont have on already (System > Certificates).
+Create certificate authentication if you do not have it already:
+**System > Certificates**.
 
-VPN > OpenVPN add servers:
-<img width="1154" height="260" alt="{6E7DFDF8-ABF7-4641-B0D5-49BBEBEC6288}" src="https://github.com/user-attachments/assets/60ebe2fa-fe20-4f86-b333-b0a05b3ef4c5" />
+Under **VPN > OpenVPN**, add the following servers.
 
-#PRE-AUTH (Windows login screen)
-UPD IPv4 Only
-Interface WAN
-Remote Acecss (SSL \ TLS)
-1194
-Peer Certificate Authority (the one you just created)
-Data Encryption Algorithms AES-256-GCM
-Fallback Data Encryption Algorithm AES-256-GCM
-IPv4 Tunnel Network 10.10.8.0/24
-IPv4 Local network(s) (You internal network range 192.168.1.0/24)
-Duplicate Connection allow
-Duplicate Connection Limit (number of devices you have)
-Dynamic IP allow
-DNS Default Domain yes
-DNS Default Domain (your AD domain)
-DNS Server enable yes
-DNS Server 1 (Your AD Server)
-Force DNS cache update (yes, might help)
-UDP Fast I/O (yes unless you have problems)
-Gateway creation IPv4 only
+<img width="1154" height="260" alt="OpenVPN server settings" src="https://github.com/user-attachments/assets/60ebe2fa-fe20-4f86-b333-b0a05b3ef4c5" />
 
-#POST AUTH (User Desktop)
-UPD IPv4 Only
-Interface WAN
-Remote Acecss (SSL \ TLS) + User Auth
-1195
-Peer Certificate Authority (the one you just created)
-Data Encryption Algorithms AES-256-GCM
-Fallback Data Encryption Algorithm AES-256-GCM
-IPv4 Tunnel Network 10.10.9.0/24
-IPv4 Local network(s) (You internal network range 192.168.1.0/24)
-Duplicate Connection allow
-Duplicate Connection Limit (number of devices you have)
-Dynamic IP allow
-DNS Default Domain yes
-DNS Default Domain (your AD domain)
-DNS Server enable yes
-DNS Server 1 (Your AD Server)
-Force DNS cache update (yes, might help)
-UDP Fast I/O (yes unless you have problems)
-Gateway creation IPv4 only
+### Pre-Auth: Windows Login Screen
 
-#Firewall WAN
-Open UDP ports on wan 1194-1195
+- **UDP IPv4 only**
+- **Interface:** WAN
+- **Remote access:** SSL/TLS
+- **Port:** `1194`
+- **Peer Certificate Authority:** the CA created above
+- **Data Encryption Algorithms:** AES-256-GCM
+- **Fallback Data Encryption Algorithm:** AES-256-GCM
+- **IPv4 Tunnel Network:** `10.10.8.0/24`
+- **IPv4 Local network(s):** your internal network range, for example `192.168.1.0/24`
+- **Duplicate Connections:** allow
+- **Duplicate Connection Limit:** the number of devices you have
+- **Dynamic IP:** allow
+- **DNS Default Domain:** enabled
+- **DNS Default Domain:** your AD domain
+- **DNS Server:** enabled
+- **DNS Server 1:** your AD server
+- **Force DNS cache update:** enabled, if needed
+- **UDP Fast I/O:** enabled unless you have problems
+- **Gateway creation:** IPv4 only
 
-#Interfaces > Assignments
-Add both PRE and POST to new interfaces (this allows us to set diffent rules for each)
-Do not set any rules under firewall > rules > OpenVPN (These will overide as they apply before the interface rules).
-<img width="1034" height="253" alt="{21D3F53B-8087-4F63-9205-E27EA287DEA2}" src="https://github.com/user-attachments/assets/4ea603ab-ad8a-49df-a49b-83501b5d6436" />
+### Post-Auth: User Desktop
 
+- **UDP IPv4 only**
+- **Interface:** WAN
+- **Remote access:** SSL/TLS plus user authentication
+- **Port:** `1195`
+- **Peer Certificate Authority:** the CA created above
+- **Data Encryption Algorithms:** AES-256-GCM
+- **Fallback Data Encryption Algorithm:** AES-256-GCM
+- **IPv4 Tunnel Network:** `10.10.9.0/24`
+- **IPv4 Local network(s):** your internal network range, for example `192.168.1.0/24`
+- **Duplicate Connections:** allow
+- **Duplicate Connection Limit:** the number of devices you have
+- **Dynamic IP:** allow
+- **DNS Default Domain:** enabled
+- **DNS Default Domain:** your AD domain
+- **DNS Server:** enabled
+- **DNS Server 1:** your AD server
+- **Force DNS cache update:** enabled, if needed
+- **UDP Fast I/O:** enabled unless you have problems
+- **Gateway creation:** IPv4 only
 
-#PREAUTH Interface
-Good idea to add a block all rule have it sit at the bottom as rules apply top down.
-Then allow where destination is your AD server IP and pick from the below ports, create a alias for UPD ports and one for TCP ports.
+## Firewall WAN
 
-DNS (Domain Name System) - TCP and UDP Port 53
-Explanation: The desktop uses DNS to look up the IP addresses of your Active Directory Domain Controllers. Without this, the computer cannot locate the domain on the network.
-Kerberos Authentication - TCP and UDP Port 88
-Explanation: This is the primary protocol Windows uses to log users in and authenticate the computer itself. It validates credentials and issues security tickets.
-NTP (Network Time Protocol) - UDP Port 123
-Explanation: Windows Time service uses this to synchronize the desktop's clock with the Domain Controller. Kerberos authentication will strictly fail if the time difference between the client and the DC is more than five minutes.
-RPC Endpoint Mapper - TCP Port 135
-Explanation: Active Directory relies heavily on Remote Procedure Calls (RPC). This port acts as a directory service that tells the desktop which random high-numbered port to use for specific backend communication.
-LDAP (Lightweight Directory Access Protocol) - TCP and UDP Port 389
-Explanation: The desktop uses LDAP to query the Active Directory database for information about user accounts, computer accounts, and group memberships.
-SMB (Server Message Block) - TCP Port 445
-Explanation: Group Policy objects are physical files stored in a shared folder on the Domain Controller called SYSVOL. The desktop connects over SMB to read and download these policy files so they can be applied to the system.
-Kerberos Password Change - TCP and UDP Port 464
-Explanation: This port handles password changes and account resets. If a user's password expires or they try to change it from the desktop, this port is required.
-LDAP over SSL/TLS - TCP Port 636
-Explanation: This is used instead of standard LDAP if your organization requires all directory queries to be encrypted over an SSL connection.
-Active Directory Web Services - TCP Port 9389
-Explanation: Used by newer Windows management components, automated scripts, and PowerShell commands running on the client to interact with the directory.
-RPC Dynamic Ephemeral Ports - TCP Ports 49152 through 65535
-Explanation: After the desktop talks to the RPC Endpoint Mapper on Port 135, the Domain Controller assigns a random port within this high range to handle the actual data transfer for Group Policy processing and authentication traffic.
+Open UDP ports `1194-1195` on the WAN firewall.
 
-#POSTAUTH Interface
-You may want to limit access to server IPs or just allow all.
-This is really up to you.
+## Interfaces > Assignments
 
+Add both PRE and POST to new interfaces. This allows separate rules for each
+interface.
 
+Do not set rules under **Firewall > Rules > OpenVPN**. Those rules override the
+interface rules because they apply before the interface rules.
 
+<img width="1034" height="253" alt="PRE and POST interface assignments" src="https://github.com/user-attachments/assets/4ea603ab-ad8a-49df-a49b-83501b5d6436" />
 
+## PREAUTH Interface
 
+Add a block-all rule at the bottom because firewall rules are applied
+top-to-bottom. Then allow traffic to your AD server IP using the ports below.
+Create one alias for UDP ports and one alias for TCP ports.
+
+- **DNS (Domain Name System):** TCP and UDP `53`<br>
+  The desktop uses DNS to find the IP addresses of Active Directory domain controllers.
+- **Kerberos Authentication:** TCP and UDP `88`<br>
+  Windows uses this protocol to authenticate the computer and issue security tickets.
+- **NTP (Network Time Protocol):** UDP `123`<br>
+  Windows Time uses this to synchronize with the domain controller. Kerberos can fail when the clock differs by more than five minutes.
+- **RPC Endpoint Mapper:** TCP `135`<br>
+  Active Directory uses this to identify the dynamic port needed for backend communication.
+- **LDAP (Lightweight Directory Access Protocol):** TCP and UDP `389`<br>
+  The desktop uses LDAP to query Active Directory.
+- **SMB (Server Message Block):** TCP `445`<br>
+  Group Policy files are stored in SYSVOL and are read over SMB.
+- **Kerberos Password Change:** TCP and UDP `464`<br>
+  This handles password changes and account resets.
+- **LDAP over SSL/TLS:** TCP `636`<br>
+  Use this when directory queries must be encrypted.
+- **Active Directory Web Services:** TCP `9389`<br>
+  Newer Windows management components and PowerShell use this service.
+- **RPC Dynamic Ephemeral Ports:** TCP `49152-65535`<br>
+  The domain controller assigns a dynamic port after the RPC endpoint mapper is contacted.
+
+## POSTAUTH Interface
+
+You may want to limit access to server IPs or allow all traffic. This is up to
+your network policy.
