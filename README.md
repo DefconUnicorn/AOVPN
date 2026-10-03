@@ -13,7 +13,7 @@ build and test instructions. The release MSI also installs the signed OpenVPN
 DCO driver for x64 Windows machines.
 
 ## Customis GUI
-[a relative link](desktop/readme.md)
+[a relative link](AOVPN/desktop/readme.md)
 
 ## Installer
 
