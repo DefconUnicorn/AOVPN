@@ -12,6 +12,9 @@ DCO driver. See `desktop/README.md` and `test-package/AOVPN/README.txt` for
 build and test instructions. The release MSI also installs the signed OpenVPN
 DCO driver for x64 Windows machines.
 
+## Customis GUI
+[a link](desktop/readme.md)
+
 ## Installer
 
 The release MSI is a self-contained per-machine installer that registers the
