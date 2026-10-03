@@ -1,0 +1,44 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package
+      Name="AOVPN"
+      Manufacturer="DefconUnicorn"
+      Version="0.1.1.0"
+      UpgradeCode="B7C0A35E-84C8-4F86-8ED5-6D3F0C2BBE26"
+      Scope="perMachine">
+    <SummaryInformation Description="Location-aware Windows Always On VPN client" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of AOVPN is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <StandardDirectory Id="ProgramFilesFolder">
+      <Directory Id="INSTALLFOLDER" Name="AOVPN">
+        <Directory Id="SERVICEFOLDER" Name="service" />
+      </Directory>
+    </StandardDirectory>
+
+    <Feature Id="MainFeature" Title="AOVPN" Level="1">
+      <ComponentRef Id="ServiceComponent" />
+      <Files Include="$(var.PackageDir)\**" Directory="INSTALLFOLDER">
+        <Exclude Files="$(var.PackageDir)\service\AOVPN.Service.exe" />
+      </Files>
+    </Feature>
+
+    <Component Id="ServiceComponent" Directory="SERVICEFOLDER" Guid="*">
+      <File Id="ServiceExecutable" Source="$(var.PackageDir)\service\AOVPN.Service.exe" KeyPath="yes" />
+      <ServiceInstall
+          Id="AOVPNServiceInstall"
+          Name="AOVPNService"
+          DisplayName="AOVPN Service"
+          Description="Provides pre-login and machine-wide AOVPN connectivity."
+          Type="ownProcess"
+          Start="auto"
+          Account="LocalSystem"
+          ErrorControl="normal" />
+      <ServiceControl
+          Id="AOVPNServiceControl"
+          Name="AOVPNService"
+          Start="install"
+          Stop="both"
+          Remove="uninstall" />
+    </Component>
+  </Package>
+</Wix>

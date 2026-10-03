@@ -1,6 +1,7 @@
 **/bin/
 **/obj/
 test-package/AOVPN/
+release-package/
 AOVPN-test-package.zip
 openvpn-core/out/
 vcpkg/buildtrees/

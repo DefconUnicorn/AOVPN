@@ -11,6 +11,13 @@ detect the internal network through IPv4 DNS, and require the Windows OpenVPN
 DCO driver. See `desktop/README.md` and `test-package/AOVPN/README.txt` for
 build and test instructions.
 
+## Installer
+
+The release MSI is a self-contained per-machine installer that registers the
+automatic `AOVPNService` Windows service. It supports interactive installation,
+silent deployment, and Group Policy software deployment. See
+`installer/README.md` for build and `msiexec` commands.
+
 ## Licensing
 
 AOVPN is licensed under GPLv2. OpenVPN core and third-party runtime components

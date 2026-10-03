@@ -1,0 +1,15 @@
+<Project Sdk="WixToolset.Sdk/6.0.2">
+  <PropertyGroup>
+    <OutputType>Package</OutputType>
+    <OutputName>AOVPN-Setup</OutputName>
+    <PackageVersion>0.1.1</PackageVersion>
+    <PackageDir Condition="'$(PackageDir)' == ''">$(MSBuildProjectDirectory)\..\test-package\AOVPN</PackageDir>
+    <DefineConstants>PackageDir=$(PackageDir)</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WixToolset.Util.wixext" Version="6.0.2" />
+    <PackageReference Include="WixToolset.UI.wixext" Version="6.0.2" />
+  </ItemGroup>
+
+</Project>
