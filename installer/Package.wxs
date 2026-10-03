@@ -2,7 +2,7 @@
   <Package
       Name="AOVPN"
       Manufacturer="DefconUnicorn"
-      Version="0.1.3.0"
+      Version="0.1.4.0"
       UpgradeCode="B7C0A35E-84C8-4F86-8ED5-6D3F0C2BBE26"
       Scope="perMachine">
     <SummaryInformation Description="Location-aware Windows Always On VPN client" />
@@ -64,7 +64,7 @@
         ExeCommand=""
         Execute="immediate"
         Impersonate="yes"
-        Return="ignore" />
+        Return="asyncNoWait" />
 
     <InstallExecuteSequence>
       <Custom Action="LaunchAOVPN" After="InstallFinalize" Condition="NOT Installed AND UILevel &gt;= 3" />

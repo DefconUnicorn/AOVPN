@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputType>Package</OutputType>
     <OutputName>AOVPN-Setup</OutputName>
-    <PackageVersion>0.1.3</PackageVersion>
+    <PackageVersion>0.1.4</PackageVersion>
     <InstallerPlatform>x64</InstallerPlatform>
     <PackageDir Condition="'$(PackageDir)' == ''">$(MSBuildProjectDirectory)\..\test-package\AOVPN</PackageDir>
     <DcoMergeModule Condition="'$(DcoMergeModule)' == ''">$(MSBuildProjectDirectory)\ovpn-dco-amd64.msm</DcoMergeModule>

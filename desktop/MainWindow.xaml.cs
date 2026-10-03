@@ -296,10 +296,23 @@ public partial class MainWindow : Window
             await InstallServiceAsync();
     }
 
-    private void ServiceToggle_Unchecked(object sender, RoutedEventArgs e)
+    private async void ServiceToggle_Unchecked(object sender, RoutedEventArgs e)
     {
         if (!_updatingToggles)
+        {
+            var vpnStatus = await ServiceHandoff.GetStatusAsync();
+            if (vpnStatus is "PRE_CONNECTED" or "PRE_CONNECTING" or "POST_CONNECTED" or "POST_CONNECTING" or "CONNECTED_INTERFACE"
+                || HasActiveVpnInterface())
+            {
+                _updatingToggles = true;
+                ServiceToggle.IsChecked = true;
+                _updatingToggles = false;
+                SetMessage("Disconnect the VPN before removing the service.");
+                return;
+            }
+
             RemoveService();
+        }
     }
 
     private void ViewConfig_Click(object sender, RoutedEventArgs e)
@@ -573,7 +586,7 @@ public partial class MainWindow : Window
             };
             DashboardVpnProgramText.Text = vpnRunning ? "RUNNING" : "STOPPED";
             DashboardVpnConnectionText.Text = vpnConnected ? "CONNECTED" : vpnRunning ? "CONNECTING" : "DISCONNECTED";
-            var userVpnState = serviceVpnStatus == "POST_CONNECTED" || _serviceVpnConnected || _vpn.IsConnected
+            var userVpnState = serviceVpnStatus is "POST_CONNECTED" or "CONNECTED_INTERFACE" || _serviceVpnConnected || _vpn.IsConnected
                 ? "connected"
                 : serviceVpnStatus == "POST_CONNECTING" || _vpn.IsRunning
                     ? "connecting"
