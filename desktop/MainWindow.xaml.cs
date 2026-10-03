@@ -307,7 +307,9 @@ public partial class MainWindow : Window
                 _updatingToggles = true;
                 ServiceToggle.IsChecked = true;
                 _updatingToggles = false;
-                SetMessage("Disconnect the VPN before removing the service.");
+                const string message = "Disconnect the VPN before removing the AOVPN service. The service currently owns an active VPN tunnel.";
+                SetMessage(message);
+                MessageBox.Show(this, message, "AOVPN service", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 

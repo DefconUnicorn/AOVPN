@@ -2,7 +2,7 @@
   <Package
       Name="AOVPN"
       Manufacturer="DefconUnicorn"
-      Version="0.1.4.0"
+      Version="0.1.5.0"
       UpgradeCode="B7C0A35E-84C8-4F86-8ED5-6D3F0C2BBE26"
       Scope="perMachine">
     <SummaryInformation Description="Location-aware Windows Always On VPN client" />
